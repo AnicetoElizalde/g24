@@ -1,0 +1,1052 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>24 años juntitos</title>
+<meta property="og:title" content="Gorka, tengo algo para ti 🎁">
+<meta property="og:description" content="24 años juntitos. Ábrelo con cariño ❤">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://anicetoelizalde.github.io/g24/">
+<meta property="og:image" content="https://anicetoelizalde.github.io/g24/regalo.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ====== EDITA AQUÍ los textos (o en CONFIG, más abajo) ====== */
+:root{
+  --noche1:#1a0f2e; --noche2:#3b1748; --rosa:#ff6f91; --oro:#ffc75f; --crema:#fff4e6;
+  --caja:#e63958; --caja2:#b8243f; --lazo:#ffd36e; --lazo2:#e0a93a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--noche1);color:var(--crema);
+  font-family:Quicksand,system-ui,sans-serif;-webkit-tap-highlight-color:transparent;user-select:none}
+#fondo,#escena{position:fixed;inset:0;width:100%;height:100%;display:block}
+#escena{opacity:0;transition:opacity 2.2s ease}
+#escena.ver{opacity:1}
+.capa{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px 16px;text-align:center;transition:opacity 1.2s ease, transform 1.2s ease}
+.oculta{opacity:0;pointer-events:none;transform:scale(.96)}
+h1{font-family:"Dancing Script",cursive;font-weight:700;font-size:clamp(40px,11vw,84px);line-height:1;
+  color:#fff;text-shadow:0 0 18px rgba(255,111,145,.75),0 0 40px rgba(255,111,145,.35)}
+h1 span{display:inline-block;opacity:0;transform:translateY(30px) rotate(-8deg);animation:letra .9s cubic-bezier(.2,.9,.3,1.3) forwards}
+@keyframes letra{to{opacity:1;transform:none}}
+.sub{margin-top:10px;font-size:clamp(16px,4.4vw,22px);letter-spacing:.04em;opacity:0;animation:aparece 1.4s ease 1.8s forwards}
+@keyframes aparece{to{opacity:.95}}
+#regalo{width:min(64vw,300px);margin:28px auto 10px;cursor:pointer;overflow:visible;
+  filter:drop-shadow(0 18px 30px rgba(0,0,0,.45));opacity:0;animation:aparece 1s ease 2.4s forwards}
+#regalo .flota{animation:flota 3s ease-in-out infinite;transform-origin:150px 260px}
+@keyframes flota{50%{transform:translateY(-8px)}}
+#regalo.tiembla .flota{animation:tiembla .55s ease}
+@keyframes tiembla{20%{transform:rotate(-6deg)}40%{transform:rotate(5deg)}60%{transform:rotate(-4deg)}80%{transform:rotate(2deg)}}
+#lazo,#cintas,#tapa,#brillo{transition:transform 1.1s cubic-bezier(.3,.8,.3,1.2),opacity 1s ease}
+#lazo{transform-origin:150px 108px}
+#regalo.paso2 #lazo{transform:translate(70px,-160px) rotate(220deg) scale(.4);opacity:0}
+#regalo.paso3 #cintas{transform:scaleY(0);opacity:0;transform-origin:150px 300px}
+#tapa{transform-origin:60px 130px}
+#regalo.paso4 #tapa{transform:rotate(-14deg) translate(-6px,-26px)}
+#regalo.paso4 #brillo{opacity:1}
+#regalo.paso5 #tapa{transform:rotate(-70deg) translate(-60px,-260px);opacity:0}
+#brillo{opacity:0}
+.pista{min-height:1.6em;font-size:clamp(15px,4vw,19px);opacity:0;animation:aparece 1s ease 3s forwards}
+.puntos{display:flex;gap:8px;justify-content:center;margin-top:10px;opacity:0;animation:aparece 1s ease 3s forwards}
+.puntos i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.25);transition:background .4s,transform .4s}
+.puntos i.on{background:var(--rosa);transform:scale(1.3)}
+/* Escena final */
+#textos{justify-content:flex-start;padding-top:max(9vh,40px);pointer-events:none}
+.frase{font-family:"Dancing Script",cursive;font-size:clamp(30px,8.6vw,62px);font-weight:700;line-height:1.1;color:#fff;
+  text-shadow:0 2px 12px rgba(80,10,40,.65),0 0 30px rgba(255,150,120,.45);opacity:0;transform:translateY(24px);filter:blur(6px);
+  transition:opacity 1.4s ease,transform 1.4s ease,filter 1.4s ease;margin:4px 0}
+.frase.peq{font-family:Quicksand,sans-serif;font-weight:600;font-size:clamp(16px,4.4vw,24px);letter-spacing:.03em}
+.frase.on{opacity:1;transform:none;filter:none}
+.frase.fuera{opacity:0;transform:translateY(-20px);filter:blur(6px)}
+#tarjeta{position:fixed;left:50%;bottom:max(5vh,22px);transform:translate(-50%,30px);width:min(92vw,460px);
+  background:rgba(30,10,30,.42);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.22);
+  border-radius:20px;padding:16px 18px;text-align:center;opacity:0;transition:opacity 1.5s ease,transform 1.5s ease}
+#tarjeta.on{opacity:1;transform:translate(-50%,0)}
+#tarjeta b{display:block;font-family:"Dancing Script",cursive;font-size:clamp(24px,6.4vw,34px);color:var(--oro)}
+#tarjeta p{font-size:clamp(14px,3.8vw,17px);line-height:1.45;margin-top:4px}
+#tarjeta .firma{margin-top:8px;font-family:"Dancing Script",cursive;font-size:clamp(22px,5.6vw,28px);color:#ffd0dc}
+#sonido{position:fixed;top:max(12px,env(safe-area-inset-top));right:12px;z-index:9;width:42px;height:42px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.25);color:#fff;font-size:19px;cursor:pointer;display:none}
+#otraVez{pointer-events:auto;margin-top:10px;background:none;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:99px;
+  padding:6px 16px;font:inherit;font-size:14px;cursor:pointer}
+</style>
+</head>
+<body>
+<canvas id="fondo"></canvas>
+<canvas id="escena"></canvas>
+<button id="sonido" aria-label="Quitar o poner la música">🔊</button>
+
+<section id="portada" class="capa">
+  <h1 id="titulo"></h1>
+  <div class="sub" id="subtitulo"></div>
+  <svg id="regalo" viewBox="0 0 300 330" role="button" aria-label="Abrir el regalo">
+    <defs>
+      <linearGradient id="gCaja" x1="0" x2="1"><stop offset="0" stop-color="var(--caja2)"/><stop offset=".45" stop-color="var(--caja)"/><stop offset="1" stop-color="var(--caja2)"/></linearGradient>
+      <linearGradient id="gLazo" x1="0" x2="1"><stop offset="0" stop-color="var(--lazo2)"/><stop offset=".5" stop-color="var(--lazo)"/><stop offset="1" stop-color="var(--lazo2)"/></linearGradient>
+      <radialGradient id="gBrillo"><stop offset="0" stop-color="#fff6c8" stop-opacity="1"/><stop offset="1" stop-color="#ffd36e" stop-opacity="0"/></radialGradient>
+      <pattern id="corazones" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M20 30 C10 22 6 17 10 12 C13 8 18 9 20 13 C22 9 27 8 30 12 C34 17 30 22 20 30Z" fill="#fff" opacity=".12"/>
+      </pattern>
+    </defs>
+    <g class="flota">
+      <ellipse id="brillo" cx="150" cy="140" rx="150" ry="90" fill="url(#gBrillo)"/>
+      <rect x="40" y="140" width="220" height="170" rx="10" fill="url(#gCaja)"/>
+      <rect x="40" y="140" width="220" height="170" rx="10" fill="url(#corazones)"/>
+      <g id="cintas">
+        <rect x="134" y="140" width="32" height="170" fill="url(#gLazo)"/>
+      </g>
+      <g id="tapa">
+        <rect x="28" y="108" width="244" height="44" rx="8" fill="url(#gCaja)" stroke="rgba(0,0,0,.12)"/>
+        <rect x="28" y="108" width="244" height="44" rx="8" fill="url(#corazones)"/>
+        <rect x="134" y="108" width="32" height="44" fill="url(#gLazo)" class="cintaTapa"/>
+      </g>
+      <g id="lazo">
+        <path d="M150 108 C110 60 70 70 86 100 C96 118 128 112 150 108Z" fill="url(#gLazo)" stroke="var(--lazo2)" stroke-width="2"/>
+        <path d="M150 108 C190 60 230 70 214 100 C204 118 172 112 150 108Z" fill="url(#gLazo)" stroke="var(--lazo2)" stroke-width="2"/>
+        <path d="M146 110 L124 150 L136 146 L140 158 L150 114Z" fill="var(--lazo2)"/>
+        <path d="M154 110 L176 150 L164 146 L160 158 L150 114Z" fill="var(--lazo2)"/>
+        <circle cx="150" cy="108" r="12" fill="var(--lazo)" stroke="var(--lazo2)" stroke-width="2"/>
+      </g>
+    </g>
+  </svg>
+  <div class="pista" id="pista">Toca el regalo 🎁</div>
+  <div class="puntos" id="puntos"><i></i><i></i><i></i><i></i><i></i></div>
+</section>
+
+<section id="textos" class="capa oculta"></section>
+<div id="tarjeta"></div>
+
+<script>
+/* ===================== CONFIGURACIÓN (cambiar aquí) ===================== */
+const CONFIG = {
+  para: "Gorka",
+  firma: "Aniceto",
+  titulo: "24 años juntitos",
+  subtitulo: "Chichiro Gorka ❤",
+  // Elegir: "zumaia" (acantilados y ermita de San Telmo) o "zarautz" (playa larga y el ratón de Getaria)
+  escena: "zumaia", fondo: 1,
+  hotel: "Hotel Talasoterapia Zelai",
+  lugar: "Zumaia · playa de Itzurun",
+  detalle: "Habitación con vistas al mar, circuito de talaso y masaje para los dos.",
+  // Frases que van saliendo cuando se abre el regalo
+  frases: [
+    ["24 años", ""],
+    ["y te sigo eligiendo", ""],
+    ["cada día", ""],
+    ["En todo este tiempo", ""],
+    ["hemos vivido momentos felices…", ""],
+    ["…y momentos duros", ""],
+    ["Pero tenemos lo más importante:", ""],
+    ["a Nika ❤", ""],
+    ["Vale la pena luchar", ""],
+    ["y superar juntos cada obstáculo", ""],
+    ["Lo que más quiero", ""],
+    ["es que seamos felices juntos", ""],
+    ["ver cómo pasa la vida a tu lado", ""],
+    ["y cómo la construimos los dos", ""],
+    ["Por eso…", ""],
+    ["Este fin de semana…", ""],
+    ["nos vamos tú y yo", ""],
+    ["a relajarnos y conectar", ""],
+  ],
+  final: "Te quiero mucho"
+};
+/* ======================================================================= */
+
+const $ = s => document.querySelector(s);
+const mq = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- Título letra a letra ---------- */
+(() => {
+  const h = $("#titulo");
+  [...CONFIG.titulo].forEach((c, i) => {
+    const s = document.createElement("span");
+    s.textContent = c === " " ? " " : c;
+    s.style.animationDelay = (0.25 + i * 0.07) + "s";
+    h.appendChild(s);
+  });
+  $("#subtitulo").textContent = CONFIG.subtitulo;
+})();
+
+/* ---------- Fondo: corazones y estrellas ---------- */
+const fondo = $("#fondo"), fx = fondo.getContext("2d");
+let W, H, DPR;
+function medir() {
+  DPR = Math.min(devicePixelRatio || 1, 2);
+  W = innerWidth; H = innerHeight;
+  for (const c of [fondo, $("#escena")]) { c.width = W * DPR; c.height = H * DPR; c.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0); }
+}
+addEventListener("resize", medir); medir();
+
+function corazon(ctx, x, y, s) {
+  ctx.beginPath();
+  ctx.moveTo(x, y + s * .3);
+  ctx.bezierCurveTo(x - s * .9, y - s * .35, x - s * .45, y - s * 1.05, x, y - s * .45);
+  ctx.bezierCurveTo(x + s * .45, y - s * 1.05, x + s * .9, y - s * .35, x, y + s * .3);
+  ctx.fill();
+}
+const estrellas = Array.from({ length: 90 }, () => ({ x: Math.random(), y: Math.random(), r: Math.random() * 1.4 + .3, f: Math.random() * 6 }));
+let flotantes = Array.from({ length: 22 }, () => nuevoCorazon(true));
+function nuevoCorazon(alAzar) {
+  return { x: Math.random() * W, y: alAzar ? Math.random() * H : H + 30, s: 6 + Math.random() * 16,
+    v: .25 + Math.random() * .6, o: .15 + Math.random() * .45, w: Math.random() * 6, h: Math.random() < .5 ? "#ff6f91" : "#ffb3c6" };
+}
+let estallido = [];
+function explotar(x, y) {
+  for (let i = 0; i < 90; i++) {
+    const a = Math.random() * Math.PI * 2, v = 2 + Math.random() * 7;
+    estallido.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 3, s: 5 + Math.random() * 12, vida: 1,
+      c: ["#ff6f91", "#ffc75f", "#fff", "#ff9671", "#f9f871"][i % 5], corazon: Math.random() < .6 });
+  }
+}
+function pintarFondo(t) {
+  const g = fx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, "#1a0f2e"); g.addColorStop(1, "#4a1942");
+  fx.fillStyle = g; fx.fillRect(0, 0, W, H);
+  for (const e of estrellas) {
+    fx.globalAlpha = .35 + .35 * Math.sin(t / 700 + e.f);
+    fx.fillStyle = "#fff"; fx.beginPath(); fx.arc(e.x * W, e.y * H * .8, e.r, 0, 7); fx.fill();
+  }
+  for (const c of flotantes) {
+    c.y -= c.v; c.x += Math.sin(t / 900 + c.w) * .35;
+    if (c.y < -30) Object.assign(c, nuevoCorazon(false));
+    fx.globalAlpha = c.o; fx.fillStyle = c.h; corazon(fx, c.x, c.y, c.s);
+  }
+  pintarEstallido(fx);
+  fx.globalAlpha = 1;
+}
+function pintarEstallido(ctx) {
+  estallido = estallido.filter(p => p.vida > 0);
+  for (const p of estallido) {
+    p.x += p.vx; p.y += p.vy; p.vy += .12; p.vx *= .99; p.vida -= .009;
+    ctx.globalAlpha = Math.max(p.vida, 0); ctx.fillStyle = p.c;
+    if (p.corazon) corazon(ctx, p.x, p.y, p.s); else { ctx.beginPath(); ctx.arc(p.x, p.y, p.s / 4, 0, 7); ctx.fill(); }
+  }
+  ctx.globalAlpha = 1;
+}
+
+/* ---------- Escena final: Zumaia. Cielo: buen tiempo → tormenta → arcoíris → anochecer con farolillos.
+   Dibujo del paisaje: CONFIG.fondo (o ?fondo=N) 1 detallado · 2 acuarela · 3 plumilla · 4 geométrico · 5 papel recortado ---------- */
+const esc = $("#escena"), ex = esc.getContext("2d");
+let escenaActiva = false;
+const R = (a, b) => a + Math.random() * (b - a);
+const clamp = v => Math.max(0, Math.min(1, v));
+const FONDO = Math.min(Math.max(+(new URLSearchParams(location.search).get("fondo")) || +CONFIG.fondo || 1, 1), 5);
+const HOR = .6; // altura del horizonte
+
+/* Colores */
+function rgbDe(c) {
+  if (c[0] === "#") { if (c.length === 4) c = "#" + [...c.slice(1)].map(x => x + x).join(""); return [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16)); }
+  return c.match(/[\d.]+/g).slice(0, 3).map(Number);
+}
+const mx = (a, b, k) => { const A = rgbDe(a), B = rgbDe(b); return `rgb(${A.map((v, i) => Math.round(v + (B[i] - v) * k)).join(",")})`; };
+const mxL = (a, b, k) => a.map((c, i) => mx(c, b[i], k));
+const tri = (a, b, k) => { const A = a.split(",").map(Number), B = b.split(",").map(Number); return A.map((v, i) => Math.round(v + (B[i] - v) * k)).join(","); };
+const rgba = (c, a) => `rgba(${rgbDe(c).join(",")},${a})`;
+
+/* Cielo y mar: día (4) y anochecer (5) */
+const CD = {
+  cielo: ["#3f62a0", "#7d9bd0", "#f0b9b0", "#ffd29e", "#fff1c8"], tormenta: ["#1d2130", "#2c3242", "#3b4252", "#4a5262", "#5d6474"],
+  sol: "#ffe8a8", halo: "255,220,160", nubeA: "#8a93b8", nubeB: "#ffe0c4", nubeA2: "#1f2331", nubeB2: "#4b5162",
+  mar: ["#f2c8a8", "#5b77a8", "#1c2a4c"], mar2: ["#4a5262", "#2e3546", "#151a26"], luz: "255,232,190",
+  agua: "120,140,170", espuma: "245,245,250", pajaro: "rgba(30,34,48,.75)"
+};
+const CN = {
+  cielo: ["#0b0f33", "#221f5c", "#4b3378", "#a5507a", "#f3875f"], cielo2: ["#070a24", "#18174a", "#33275e", "#6e3b6e", "#b8605a"],
+  halo: "255,140,100", nubeA: "#2a2050", nubeB: "#d0707a", mar: ["#c0607a", "#3a2a60", "#0e0c26"], luz: "255,170,130",
+  agua: "90,70,130", espuma: "230,200,230", silueta: "#0c0818"
+};
+/* Paisaje: colores de día y de anochecer (se dibuja dos veces y se funden) */
+const LAY = {
+  dia: { bruma: "#ffd9b0", lejos: ["#a49cb4", "#8b83a2"], papel: "#f1e6d6",
+    rocaLuz: "#9a8a8c", rocaMed: "#76686f", rocaOsc: "#574b56", luz: "#ffd2a0", sombra: "#2a2030",
+    hierba: "#6f8a4c", hierbaLuz: "#a3bb6a", hierbaOsc: "#47603a", ermita: "#f5ede2", ermitaSom: "#cdbfbd",
+    tejado: "#b4563e", tejadoOsc: "#7d3a2e", hotel: "#f3eee8", hotelSom: "#c9c0c3", cristal: "#7b8fa8", vent: .1, ventana: "#ffcf86",
+    arena: "#e6c6a0", arena2: "#c3a088", mojada: "#a4949a", espuma: "#ffffff", arbol: "#3f5638", arbolLuz: "#7e9a55", tinta: "#2b2330" },
+  noche: { bruma: "#e07a6a", lejos: ["#5d4580", "#46346c"], papel: "#3d3158",
+    rocaLuz: "#4f4068", rocaMed: "#3b2f57", rocaOsc: "#2a2145", luz: "#ff9c8a", sombra: "#0c0818",
+    hierba: "#2c2a4a", hierbaLuz: "#45406a", hierbaOsc: "#1d1b36", ermita: "#c7b4d9", ermitaSom: "#8f7fae",
+    tejado: "#5c3a5e", tejadoOsc: "#3a2442", hotel: "#c2aed2", hotelSom: "#8b7aa6", cristal: "#2c2a52", vent: 1, ventana: "#ffc27a",
+    arena: "#6c527c", arena2: "#2c2044", mojada: "#4c3c6a", espuma: "#e8d0ec", arbol: "#1b1732", arbolLuz: "#2e2a4c", tinta: "#100b1e" }
+};
+
+/* Azar con semilla: el paisaje sale igual de día y de noche */
+function semilla(n) { let a = n >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function hacerRuido(r) { const v = Array.from({ length: 512 }, () => r() * 2 - 1); return x => { const i = Math.floor(x), f = x - i, s = f * f * (3 - 2 * f), a = v[((i % 512) + 512) % 512], b = v[(((i + 1) % 512) + 512) % 512]; return a + (b - a) * s; }; }
+
+/* Elementos que se mueven */
+const gaviotas = Array.from({ length: 6 }, (_, i) => ({ x: Math.random(), y: R(.1, .3), v: R(.00018, .0004), f: i * 1.7, s: R(.7, 1.2) }));
+const destellos = Array.from({ length: 90 }, () => ({ x: Math.random(), y: Math.random() ** 1.6, f: Math.random() * 7 }));
+const estrellasN = [
+  ...Array.from({ length: 170 }, () => ({ x: Math.random(), y: Math.random() ** 1.3, r: Math.random() ** 3 * 1.6 + .25, f: Math.random() * 7 })),
+  ...Array.from({ length: 120 }, () => { const s = R(-1, 1), o = (Math.random() + Math.random() + Math.random() - 1.5) * .07;
+    return { x: .55 + s * .5 + o * .5, y: .4 - s * .32 + o, r: Math.random() ** 3 * 1.1 + .2, f: Math.random() * 7 }; })
+];
+const nubes = Array.from({ length: 7 }, () => ({ x: Math.random(), y: R(.06, .4), w: R(.28, .6), v: R(.000004, .00001),
+  bolas: Array.from({ length: 9 }, () => [R(-.5, .5), R(-.22, .08), R(.12, .28)]) }));
+let globos = Array.from({ length: 14 }, () => ({ x: Math.random(), y: 1 + Math.random(), s: R(6, 15), v: R(.0006, .0013), w: Math.random() * 7 }));
+const farolillos = Array.from({ length: 26 }, (_, i) => ({ x: R(.36, .5), y: .87, v: R(.0006, .0012), s: R(.7, 1.25), w: Math.random() * 7, d: R(-.00004, .00012), inicio: 64000 + i * 1000 }));
+const gotas = Array.from({ length: 170 }, () => ({ x: Math.random(), y: Math.random(), v: R(.012, .02), l: R(10, 22) }));
+let fugaz = null, proxFugaz = 72000;
+
+/* ===== Geometría común del paisaje ===== */
+const orillaY = x => H * .82 + (x / W) * H * .04;
+function geo() {
+  const r = semilla(7), rn = hacerRuido(r), hor = H * HOR, u = Math.min(W, H) / 400, x0 = W * .56, top = hor - H * .045;
+  const cimaY = x => { const f = clamp((x - x0) / (W * .44)); return hor + H * .012 - H * .152 * Math.pow(Math.sin(f * Math.PI / 2), 1.15) + (rn(x / (9 * u)) * 1.2 + rn(x / (35 * u) + 50) * 2.5) * u * (.4 + f); };
+  const cima = []; for (let x = x0; x <= W + 6; x += 3) cima.push([x, cimaY(x)]);
+  const yT = cimaY(x0), cara = [];
+  for (let k = 0; k <= 24; k++) { const f = k / 24; cara.push([x0 + W * .04 * f + rn(k * .8 + 90) * 3 * u * Math.sin(f * Math.PI), yT + (H * .745 - yT) * f]); }
+  const pie = []; for (let x = W * .6; x <= W + 6; x += 5) pie.push([x, H * .745 + (x - W * .6) / (W * .4) * H * .015 + rn(x / (5 * u) + 200) * 1.6 * u]);
+  const acantilado = [...cima, [W + 6, H * .76], ...pie.slice().reverse(), ...cara.slice().reverse()];
+  const topL = x => top + rn(x / (10 * u) + 300) * 1.2 * u;
+  const lcima = []; for (let x = -6; x <= W * .17; x += 3) lcima.push([x, topL(x)]);
+  const P0 = [W * .17, topL(W * .17)], C1 = [W * .22, top + 2], C2 = [W * .2, hor + H * .1], P3 = [W * .27, orillaY(W * .27) + 4], lcara = [];
+  for (let k = 1; k <= 30; k++) { const t = k / 30, q = 1 - t;
+    const x = q * q * q * P0[0] + 3 * q * q * t * C1[0] + 3 * q * t * t * C2[0] + t * t * t * P3[0], y = q * q * q * P0[1] + 3 * q * q * t * C1[1] + 3 * q * t * t * C2[1] + t * t * t * P3[1];
+    lcara.push([x + rn(k * .9 + 400) * 2.5 * u * Math.sin(t * Math.PI), y]); }
+  const ladera = [[-6, H * .86], ...lcima, ...lcara, [W * .27, H * .86]];
+  const lejos0 = [], lejos1 = [];
+  for (let x = W * .18; x <= W * .64; x += 3) { const f = (x - W * .18) / (W * .46);
+    lejos0.push([x, hor - H * (.016 * Math.pow(Math.sin(f * Math.PI), .7) + .013 * Math.exp(-(((f - .56) / .07) ** 2)) + .007 * Math.exp(-(((f - .42) / .04) ** 2))) + rn(x / (6 * u) + 600) * .6 * u]); }
+  lejos0.push([W * .64, hor + 1], [W * .18, hor + 1]);
+  for (let x = W * .24; x <= W * .5; x += 3) { const f = (x - W * .24) / (W * .26); lejos1.push([x, hor - H * .008 * Math.pow(Math.sin(f * Math.PI), .8) + rn(x / (5 * u) + 700) * .5 * u]); }
+  lejos1.push([W * .5, hor + 1], [W * .24, hor + 1]);
+  const playa = [[-6, H + 6], [-6, orillaY(0)]];
+  for (let x = 0; x <= W * .8; x += 6) playa.push([x, orillaY(x)]);
+  const a0 = [W * .8, orillaY(W * .8)], c = [W * .88, H * .88], b0 = [W * .97, H + 6];
+  for (let k = 1; k <= 14; k++) { const t = k / 14, q = 1 - t; playa.push([q * q * a0[0] + 2 * q * t * c[0] + t * t * b0[0], q * q * a0[1] + 2 * q * t * c[1] + t * t * b0[1]]); }
+  const mojada = []; for (let x = 0; x <= W * .8; x += 6) mojada.push([x, orillaY(x)]);
+  for (let x = W * .8; x >= 0; x -= 6) mojada.push([x, orillaY(x) + H * .035 + rn(x / (20 * u) + 1000) * 3 * u]);
+  const rasa = [];
+  for (let k = 0; k < 9; k++) { const x = W * (.6 + k * .05) + r() * 6 * u, y = H * .748 + (x - W * .6) / (W * .4) * H * .015 + 2 * u, L = W * (.07 + r() * .07), g = (5 + r() * 5) * u;
+    rasa.push([[x, y], [x + g, y], [x + g - L * .86, y + L * .42], [x - L * .86, y + L * .42]]); }
+  const bandas = []; let y = -H * 1.5, i = 0;
+  while (y < H * 1.5) { const cal = i % 2 === 0, gr = (cal ? 2 + r() * 3 : 3 + r() * 7) * u; bandas.push({ y, gr, cal, ph: r() * 6 }); y += gr; i++; }
+  const capa = (linea, base) => [...linea, ...linea.map(([x, y]) => [x, y + (base + rn(x / (4 * u) + 900) * 1.5) * u]).reverse()];
+  const ermX = W * .86;
+  return { u, hor, top, x0, cimaY, cima, cara, pie, acantilado, ladera, lcima, lcara, lejos0, lejos1, playa, mojada, rasa, bandas, rn, capa,
+    lineaL: [...lcima, ...lcara.slice(0, 6)], ermX, ermY: cimaY(ermX) + 1.5 * u, cx: W * .78, cy: hor, ang: -1.05 };
+}
+
+/* ===== Ayudas de dibujo ===== */
+function poly(g, pts) { g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); }
+function linea(g, pts) { g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); }
+function caja(pts) { let a = 1e9, b = 1e9, c = -1e9, d = -1e9; for (const [x, y] of pts) { a = Math.min(a, x); b = Math.min(b, y); c = Math.max(c, x); d = Math.max(d, y); } return [a, b, c, d]; }
+function enEstratos(g, G, fn) { g.save(); g.translate(G.cx, G.cy); g.rotate(G.ang); fn(); g.restore(); }
+function bandaPath(g, G, b, amp, extra = 0) {
+  const L = H * 1.7, n = 40; g.beginPath();
+  for (let k = 0; k <= n; k++) { const s = -L + 2 * L * k / n; g.lineTo(s, b.y - extra + Math.sin(s / (55 * G.u) + b.ph) * amp); }
+  for (let k = n; k >= 0; k--) { const s = -L + 2 * L * k / n; g.lineTo(s, b.y + b.gr + extra + Math.sin(s / (55 * G.u) + b.ph + .7) * amp); }
+  g.closePath();
+}
+function bandaEn(G, x, y) {
+  const s = Math.sin(G.ang), c = Math.cos(G.ang), Y = -(x - G.cx) * s + (y - G.cy) * c;
+  let lo = 0, hi = G.bandas.length - 1;
+  while (lo < hi) { const m = (lo + hi + 1) >> 1; if (G.bandas[m].y <= Y) lo = m; else hi = m - 1; }
+  return G.bandas[lo];
+}
+function puntitos(g, bb, r, n, u, col, a0, a1) {
+  for (let k = 0; k < n; k++) { g.fillStyle = rgba(col, a0 + r() * (a1 - a0)); g.beginPath(); g.arc(bb[0] + r() * (bb[2] - bb[0]), bb[1] + r() * (bb[3] - bb[1]), (.3 + r() * .6) * u, 0, 7); g.fill(); }
+}
+function luzRoca(g, P, bb, fuerza = 1) {
+  const lg = g.createLinearGradient(bb[0], 0, bb[0] + W * .14, 0); lg.addColorStop(0, rgba(P.luz, .3 * fuerza)); lg.addColorStop(1, rgba(P.luz, 0));
+  g.fillStyle = lg; g.fillRect(bb[0], bb[1], bb[2] - bb[0], bb[3] - bb[1]);
+  const vg = g.createLinearGradient(0, bb[1], 0, bb[3]); vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(.5, rgba(P.sombra, .15 * fuerza)); vg.addColorStop(1, rgba(P.sombra, .55 * fuerza));
+  g.fillStyle = vg; g.fillRect(bb[0], bb[1], bb[2] - bb[0], bb[3] - bb[1]);
+}
+function brumaCapa(g, P, G, a = .45) {
+  const b = g.createLinearGradient(0, G.hor - H * .06, 0, G.hor + 1); b.addColorStop(0, rgba(P.bruma, 0)); b.addColorStop(1, rgba(P.bruma, a));
+  g.fillStyle = b; g.fillRect(0, G.hor - H * .06, W, H * .06 + 1);
+}
+function aguada(g, pts, color, r, n, wob, a) { // capas de acuarela con el borde temblón
+  for (let k = 0; k < n; k++) {
+    g.beginPath(); pts.forEach(([x, y], i) => { const X = x + (r() - .5) * 2 * wob, Y = y + (r() - .5) * 2 * wob; i ? g.lineTo(X, Y) : g.moveTo(X, Y); }); g.closePath();
+    g.fillStyle = rgba(color, a); g.fill();
+  }
+  g.strokeStyle = "rgba(30,20,40,.16)"; g.lineWidth = wob * .45; g.stroke();
+}
+function lowpoly(g, pts, color, cel, r) { // triángulos facetados
+  const bb = caja(pts); g.save(); poly(g, pts); g.clip();
+  const cols = Math.ceil((bb[2] - bb[0]) / cel) + 3, filas = Math.ceil((bb[3] - bb[1]) / cel) + 3, p = [];
+  for (let j = 0; j < filas; j++) { p.push([]); for (let i = 0; i < cols; i++) p[j].push([bb[0] - cel + i * cel + (r() - .5) * cel * .8, bb[1] - cel + j * cel + (r() - .5) * cel * .8]); }
+  g.lineWidth = .6;
+  for (let j = 0; j < filas - 1; j++) for (let i = 0; i < cols - 1; i++) {
+    const a = p[j][i], b = p[j][i + 1], c = p[j + 1][i + 1], d = p[j + 1][i];
+    for (const t of r() < .5 ? [[a, b, c], [a, c, d]] : [[a, b, d], [b, c, d]]) {
+      const cx = (t[0][0] + t[1][0] + t[2][0]) / 3, cy = (t[0][1] + t[1][1] + t[2][1]) / 3;
+      g.fillStyle = g.strokeStyle = color(cx, cy); poly(g, t); g.fill(); g.stroke();
+    }
+  }
+  g.restore();
+}
+function variar(col, amt, r) { const j = 1 + (r() - .5) * amt; return `rgb(${rgbDe(col).map(v => Math.max(0, Math.min(255, Math.round(v * j)))).join(",")})`; }
+
+/* ===== Piezas: ermita de San Telmo, hotel, árboles, playa ===== */
+function ermita(g, P, G, modo) {
+  const s = G.u * 1.6, x = G.ermX, y = G.ermY, tinta = modo === "tinta";
+  const trazo = fn => { if (tinta) { fn(); g.strokeStyle = P.tinta; g.lineWidth = .45 * s; g.stroke(); } };
+  g.fillStyle = P.ermitaSom; g.fillRect(x - 30 * s, y - 2.6 * s, 50 * s, 2.6 * s);
+  g.fillStyle = P.ermita; g.fillRect(x - 30 * s, y - 3.2 * s, 50 * s, .8 * s);
+  trazo(() => { g.beginPath(); g.rect(x - 30 * s, y - 3.2 * s, 50 * s, 3.2 * s); });
+  // nave
+  g.fillStyle = P.ermitaSom; g.fillRect(x - 10 * s, y - 12 * s, 26 * s, 12 * s);
+  const so = g.createLinearGradient(0, y - 12 * s, 0, y - 8 * s); so.addColorStop(0, "rgba(0,0,0,.2)"); so.addColorStop(1, "rgba(0,0,0,0)");
+  g.fillStyle = so; g.fillRect(x - 10 * s, y - 12 * s, 26 * s, 4 * s);
+  for (const wx of [x - 1 * s, x + 8 * s]) { g.fillStyle = P.vent > .5 ? P.ventana : P.cristal; g.beginPath(); g.rect(wx, y - 8.5 * s, 2.4 * s, 3.6 * s); g.arc(wx + 1.2 * s, y - 8.5 * s, 1.2 * s, Math.PI, 0); g.fill(); }
+  trazo(() => { g.beginPath(); g.rect(x - 10 * s, y - 12 * s, 26 * s, 12 * s); });
+  if (tinta) { g.save(); g.beginPath(); g.rect(x - 10 * s, y - 12 * s, 26 * s, 12 * s); g.clip(); g.strokeStyle = rgba(P.tinta, .35); g.lineWidth = .3 * s;
+    for (let k = -12; k < 30; k += 1.3) { g.beginPath(); g.moveTo(x + k * s, y); g.lineTo(x + (k + 12) * s, y - 12 * s); g.stroke(); } g.restore(); }
+  // tejado de teja
+  const tej = [[x - 14 * s, y - 19 * s], [x + 13 * s, y - 19 * s], [x + 16.8 * s, y - 11.6 * s], [x - 10 * s, y - 11.6 * s]];
+  poly(g, tej); g.fillStyle = P.tejado; g.fill();
+  g.save(); poly(g, tej); g.clip(); g.strokeStyle = rgba(P.tejadoOsc, .7); g.lineWidth = .35 * s;
+  for (let k = -14; k < 18; k += 1.5) { g.beginPath(); g.moveTo(x + k * s, y - 19 * s); g.lineTo(x + (k + 3.8) * s, y - 11.6 * s); g.stroke(); }
+  for (let k = 0; k < 4; k++) { const yy = y - (12.8 + k * 1.8) * s; g.beginPath(); g.moveTo(x - 20 * s, yy); g.lineTo(x + 20 * s, yy); g.stroke(); }
+  g.restore();
+  g.fillStyle = "rgba(0,0,0,.25)"; g.fillRect(x - 10 * s, y - 11.6 * s, 26.8 * s, .9 * s);
+  trazo(() => poly(g, tej));
+  // fachada con hastial
+  const fach = [[x - 18 * s, y], [x - 18 * s, y - 12 * s], [x - 14 * s, y - 19 * s], [x - 10 * s, y - 12 * s], [x - 10 * s, y]];
+  poly(g, fach); g.fillStyle = P.ermita; g.fill();
+  g.strokeStyle = P.tejadoOsc; g.lineWidth = 1.1 * s; linea(g, [[x - 18.6 * s, y - 11.4 * s], [x - 14 * s, y - 19.6 * s], [x - 9.4 * s, y - 11.4 * s]]); g.stroke();
+  trazo(() => poly(g, fach));
+  // espadaña con campana y cruz
+  const esp = [[x - 16 * s, y - 18 * s], [x - 16 * s, y - 24.5 * s], [x - 14 * s, y - 26.5 * s], [x - 12 * s, y - 24.5 * s], [x - 12 * s, y - 18 * s]];
+  poly(g, esp); g.fillStyle = P.ermita; g.fill(); trazo(() => poly(g, esp));
+  g.fillStyle = P.sombra; g.beginPath(); g.rect(x - 15 * s, y - 22 * s, 2 * s, 2.4 * s); g.arc(x - 14 * s, y - 22 * s, 1 * s, Math.PI, 0); g.fill();
+  g.fillStyle = "#c9a04e"; g.beginPath(); g.arc(x - 14 * s, y - 20.4 * s, .8 * s, Math.PI, 0); g.fill();
+  g.strokeStyle = P.tejadoOsc; g.lineWidth = .45 * s; g.beginPath(); g.moveTo(x - 14 * s, y - 26.5 * s); g.lineTo(x - 14 * s, y - 29.5 * s);
+  g.moveTo(x - 15.1 * s, y - 28.4 * s); g.lineTo(x - 12.9 * s, y - 28.4 * s); g.stroke();
+  // puerta y óculo
+  g.fillStyle = P.tejadoOsc; g.beginPath(); g.rect(x - 15.3 * s, y - 5.5 * s, 2.6 * s, 5.5 * s); g.arc(x - 14 * s, y - 5.5 * s, 1.3 * s, Math.PI, 0); g.fill();
+  g.fillStyle = P.vent > .5 ? P.ventana : P.cristal; g.beginPath(); g.arc(x - 14 * s, y - 9.6 * s, .9 * s, 0, 7); g.fill();
+  if (P.vent > .5) { const gl = g.createRadialGradient(x - 14 * s, y - 9.6 * s, 0, x - 14 * s, y - 9.6 * s, 9 * s); gl.addColorStop(0, rgba(P.ventana, .35)); gl.addColorStop(1, rgba(P.ventana, 0)); g.fillStyle = gl; g.fillRect(x - 23 * s, y - 19 * s, 18 * s, 18 * s); }
+  g.strokeStyle = rgba(P.luz, .6); g.lineWidth = .5 * s; linea(g, [[x - 18 * s, y], [x - 18 * s, y - 12 * s], [x - 14 * s, y - 19 * s]]); g.stroke();
+}
+function camino(g, P, G, color) {
+  const pts = []; for (let x = G.ermX - 32 * G.u; x > W * .7; x -= 3) pts.push([x, G.cimaY(x) + 2.6 * G.u]);
+  g.setLineDash([2 * G.u, 1.6 * G.u]); g.strokeStyle = color; g.lineWidth = .9 * G.u; linea(g, pts); g.stroke(); g.setLineDash([]);
+}
+function hotel(g, P, G, modo) {
+  const u = G.u, x0 = W * .012, w = W * .15, fh = H * .0105, n = 4, h = fh * n, y = G.top + .5 * u, tinta = modo === "tinta", r = semilla(23);
+  g.fillStyle = P.hotelSom; g.fillRect(x0 + w * .55, y - h - fh, w * .4, fh * 1.2);
+  poly(g, [[x0 + w, y], [x0 + w, y - h], [x0 + w + 4 * u, y - h - 2 * u], [x0 + w + 4 * u, y - 2 * u]]); g.fillStyle = P.hotelSom; g.fill();
+  g.fillStyle = P.hotel; g.fillRect(x0, y - h, w, h);
+  const sg = g.createLinearGradient(x0, 0, x0 + w, 0); sg.addColorStop(0, rgba(P.luz, .2)); sg.addColorStop(1, "rgba(0,0,0,.12)"); g.fillStyle = sg; g.fillRect(x0, y - h, w, h);
+  g.fillStyle = P.hotelSom; g.fillRect(x0 - .6 * u, y - h - 1.4 * u, w + 1.2 * u, 1.4 * u);
+  g.fillStyle = P.vent > .5 ? P.ventana : P.tejadoOsc; g.font = `700 ${2.6 * u}px Quicksand, sans-serif`; g.textAlign = "center"; g.textBaseline = "bottom";
+  g.fillText("ZELAI", x0 + w * .3, y - h - 1.6 * u);
+  const cols = 9, cw = w / cols;
+  for (let f = 0; f < n; f++) {
+    const fy = y - h + f * fh, bajo = f === n - 1;
+    for (let c = 0; c < cols; c++) {
+      const wx = x0 + c * cw + cw * (bajo ? .04 : .14), wy = fy + fh * .18, ww = cw * (bajo ? .92 : .72), wh = fh * (bajo ? .78 : .62);
+      g.fillStyle = P.cristal; g.fillRect(wx, wy, ww, wh);
+      if (P.vent > .5 && (bajo || r() < .3 + P.vent * .55)) { g.fillStyle = rgba(P.ventana, .55 + r() * .45); g.fillRect(wx, wy, ww, wh); }
+      else { r(); g.fillStyle = rgba(P.luz, .28); g.beginPath(); g.moveTo(wx, wy + wh); g.lineTo(wx + ww * .45, wy); g.lineTo(wx + ww * .7, wy); g.lineTo(wx + ww * .25, wy + wh); g.fill(); }
+      if (tinta) { g.strokeStyle = P.tinta; g.lineWidth = .3 * u; g.strokeRect(wx, wy, ww, wh); }
+    }
+    if (!bajo) {
+      g.fillStyle = P.hotel; g.fillRect(x0 - .5 * u, fy + fh - .9 * u, w + .5 * u, .9 * u);
+      g.strokeStyle = rgba(P.tinta, .45); g.lineWidth = .25 * u; g.beginPath(); g.moveTo(x0, fy + fh - 3 * u); g.lineTo(x0 + w, fy + fh - 3 * u);
+      for (let k = x0; k < x0 + w; k += 1.4 * u) { g.moveTo(k, fy + fh - 3 * u); g.lineTo(k, fy + fh - .9 * u); } g.stroke();
+    }
+  }
+  if (P.vent > .5) { const gl = g.createRadialGradient(x0 + w / 2, y, 0, x0 + w / 2, y, w * .8); gl.addColorStop(0, rgba(P.ventana, .22)); gl.addColorStop(1, rgba(P.ventana, 0)); g.fillStyle = gl; g.fillRect(x0 - w * .3, y - w * .8, w * 1.6, w * 1.6); }
+  if (tinta) { g.strokeStyle = P.tinta; g.lineWidth = .6 * u; g.strokeRect(x0, y - h, w, h); g.strokeRect(x0 - .6 * u, y - h - 1.4 * u, w + 1.2 * u, 1.4 * u); }
+}
+function arbol(g, P, x, y, t, r, modo) {
+  g.fillStyle = P.arbol; g.fillRect(x - .12 * t, y - t * .8, .24 * t, t * .8);
+  const bolas = Array.from({ length: 7 }, () => [x + (r() - .5) * t * 1.2, y - t * (.8 + r() * .55), t * (.25 + r() * .2)]);
+  for (const [bx, by, br] of bolas) {
+    if (modo === "poly") { g.fillStyle = r() < .5 ? P.arbol : P.hierbaOsc; g.beginPath(); for (let i = 0; i < 6; i++) { const a = i / 6 * 6.283; g.lineTo(bx + Math.cos(a) * br, by + Math.sin(a) * br); } g.fill(); }
+    else { g.fillStyle = rgba(P.arbol, modo === "acuarela" ? .6 : 1); g.beginPath(); g.arc(bx, by, br, 0, 7); g.fill(); }
+  }
+  for (const [bx, by, br] of bolas) {
+    g.fillStyle = rgba(P.arbolLuz, modo === "acuarela" ? .45 : .9); g.beginPath();
+    if (modo === "poly") { g.moveTo(bx - br, by); g.lineTo(bx, by - br); g.lineTo(bx, by); } else g.arc(bx - br * .3, by - br * .3, br * .5, 0, 7);
+    g.fill();
+    if (modo === "tinta") { g.strokeStyle = P.tinta; g.lineWidth = t * .04; g.beginPath(); g.arc(bx, by, br, Math.PI * .9, Math.PI * 2.1); g.stroke(); }
+  }
+}
+function pasto(g, P, G, lin, grueso, r, modo) {
+  const u = G.u, cap = G.capa(lin, grueso);
+  poly(g, cap); g.fillStyle = P.hierba; g.fill();
+  const bajo = cap.slice(lin.length);
+  g.strokeStyle = "rgba(0,0,0,.3)"; g.lineWidth = 1.3 * u; linea(g, bajo); g.stroke();
+  g.strokeStyle = modo === "tinta" ? rgba(P.tinta, .7) : rgba(P.hierbaLuz, .85); g.lineWidth = .5 * u; g.beginPath();
+  for (const [x, y] of lin) for (let k = 0; k < 2; k++) { const xx = x + r() * 3; g.moveTo(xx, y + u); g.lineTo(xx + (r() - .5) * 2 * u, y - (1 + r() * 2.2) * u); }
+  g.stroke();
+  for (let k = 0; k < Math.round(lin.length / 6); k++) {
+    const [x, y] = lin[Math.floor(r() * lin.length)];
+    for (let i = 0; i < 3; i++) { const bx = x + (r() - .5) * 5 * u, by = y - .5 * u - r() * 1.5 * u, br = (1.6 + r() * 2) * u;
+      g.fillStyle = P.hierbaOsc; g.beginPath(); g.arc(bx, by, br, 0, 7); g.fill();
+      g.fillStyle = rgba(P.hierbaLuz, .8); g.beginPath(); g.arc(bx - br * .3, by - br * .35, br * .5, 0, 7); g.fill(); }
+  }
+  if (modo === "tinta") { poly(g, cap); g.strokeStyle = P.tinta; g.lineWidth = .6 * u; g.stroke(); }
+}
+function rocas(g, P, G, r, modo) {
+  const u = G.u;
+  for (let k = 0; k < 9; k++) {
+    const x = r() * W * .25, y = orillaY(x) + (r() * .022 + .006) * H, rr = (2.5 + r() * 4.5) * u;
+    g.fillStyle = rgba(P.sombra, .35); g.beginPath(); g.ellipse(x + rr * .2, y + rr * .45, rr * 1.25, rr * .35, 0, 0, 7); g.fill();
+    const pts = []; for (let i = 0; i < 8; i++) { const a = i / 8 * 6.283, q = rr * (.8 + r() * .3); pts.push([x + Math.cos(a) * q, y + Math.sin(a) * q * .7 - rr * .2]); }
+    poly(g, pts); g.fillStyle = P.rocaMed; g.fill();
+    if (modo === "poly") { g.fillStyle = P.rocaLuz; poly(g, [pts[4], pts[5], pts[6], [x, y - rr * .2]]); g.fill(); }
+    else { g.fillStyle = rgba(P.rocaLuz, .85); g.beginPath(); g.ellipse(x - rr * .3, y - rr * .5, rr * .45, rr * .28, -.3, 0, 7); g.fill(); }
+    if (modo === "tinta") { poly(g, pts); g.strokeStyle = P.tinta; g.lineWidth = .5 * u; g.stroke(); }
+  }
+}
+function huellas(g, P, G) {
+  const u = G.u; g.fillStyle = rgba(P.sombra, .2);
+  for (let k = 0; k < 12; k++) { const f = k / 12, x = W * (.24 + f * .17), y = H * (.995 - f * .085);
+    g.beginPath(); g.ellipse(x + (k % 2 ? 1.6 : -1.6) * u, y, 1 * u, .45 * u, 0, 0, 7); g.fill(); }
+}
+function arenaDetalle(g, P, G, r) {
+  const u = G.u;
+  g.save(); poly(g, G.playa); g.clip();
+  g.save(); g.translate(W * .3, orillaY(W * .3) + H * .015); g.scale(1, .15);
+  const rf = g.createRadialGradient(0, 0, 0, 0, 0, W * .25); rf.addColorStop(0, rgba(P.luz, .35)); rf.addColorStop(1, rgba(P.luz, 0));
+  g.fillStyle = rf; g.beginPath(); g.arc(0, 0, W * .25, 0, 7); g.fill(); g.restore();
+  for (let k = 0; k < 80; k++) {
+    const x = r() * W * .95, y = orillaY(x) + H * .045 + r() * H * .14, w = (4 + r() * 9) * u;
+    g.strokeStyle = rgba(P.sombra, .18); g.lineWidth = .6 * u; g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + w / 2, y - 1.2 * u, x + w, y); g.stroke();
+    g.strokeStyle = rgba(P.luz, .14); g.beginPath(); g.moveTo(x, y + .7 * u); g.quadraticCurveTo(x + w / 2, y - .5 * u, x + w, y + .7 * u); g.stroke();
+  }
+  puntitos(g, [0, H * .84, W, H], r, 120, u, P.sombra, .15, .35);
+  g.restore();
+}
+
+/* ===== Los 5 dibujos del paisaje ===== */
+const ESTILOS = {
+  1(g, P, G, r) { // Ilustración detallada
+    const { u } = G;
+    poly(g, G.lejos0); g.fillStyle = P.lejos[0]; g.fill();
+    poly(g, G.lejos1); g.fillStyle = P.lejos[1]; g.fill();
+    g.strokeStyle = rgba(P.luz, .35); g.lineWidth = .8 * u; linea(g, G.lejos0.slice(0, -2)); g.stroke();
+    brumaCapa(g, P, G);
+    for (const s of G.rasa) { // lajas de la rasa: cuerpo oscuro, cara de arriba con luz y espuma al pie
+      poly(g, s); g.fillStyle = P.rocaOsc; g.fill();
+      const t = .35, top = [s[0], s[1], [s[1][0] + (s[2][0] - s[1][0]) * t, s[1][1] + (s[2][1] - s[1][1]) * t], [s[0][0] + (s[3][0] - s[0][0]) * t, s[0][1] + (s[3][1] - s[0][1]) * t]];
+      poly(g, top); g.fillStyle = P.rocaLuz; g.fill();
+      g.strokeStyle = rgba(P.luz, .45); g.lineWidth = .7 * u; linea(g, [s[0], s[1]]); g.stroke();
+      g.strokeStyle = rgba(P.espuma, .45); g.lineWidth = 1 * u; linea(g, [s[3], s[2]]); g.stroke();
+      for (let k = 0; k < 6; k++) { r(); r(); r(); } }
+    const bb = caja(G.acantilado);
+    g.save(); poly(g, G.acantilado); g.fillStyle = P.rocaMed; g.fill(); g.clip();
+    enEstratos(g, G, () => { for (const b of G.bandas) { bandaPath(g, G, b, 1.2 * u); g.fillStyle = b.cal ? P.rocaLuz : P.rocaOsc; g.fill();
+      if (b.cal) { g.strokeStyle = rgba(P.luz, .28); g.lineWidth = .6 * u; g.stroke(); } } });
+    g.strokeStyle = "rgba(0,0,0,.28)"; g.lineWidth = .6 * u;
+    for (let k = 0; k < 260; k++) { const x = bb[0] + r() * (bb[2] - bb[0]), y = bb[1] + r() * (bb[3] - bb[1]), l = (3 + r() * 9) * u;
+      g.beginPath(); g.moveTo(x, y); g.lineTo(x + .867 * l, y + .497 * l); g.stroke(); }
+    puntitos(g, bb, r, 1400, u, P.sombra, .05, .18);
+    for (let k = 0; k < 8; k++) { const cx = bb[0] + r() * (bb[2] - bb[0]), cg = g.createLinearGradient(cx - 6 * u, 0, cx + 6 * u, 0);
+      cg.addColorStop(0, "rgba(0,0,0,0)"); cg.addColorStop(.5, "rgba(0,0,0,.16)"); cg.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = cg; g.fillRect(cx - 6 * u, bb[1], 12 * u, bb[3] - bb[1]); }
+    luzRoca(g, P, bb);
+    g.restore();
+    g.strokeStyle = rgba(P.luz, .6); g.lineWidth = 1.1 * u; linea(g, G.cara.slice(0, 14)); g.stroke(); linea(g, G.cima.slice(0, 40)); g.stroke();
+    g.strokeStyle = rgba(P.espuma, .4); g.lineWidth = 1.2 * u; linea(g, G.pie.map(([x, y]) => [x, y + 1.5 * u])); g.stroke();
+    pasto(g, P, G, G.cima, 5, r);
+    camino(g, P, G, rgba(P.arena, .75));
+    ermita(g, P, G, "normal");
+    const bl = caja(G.ladera);
+    g.save(); poly(g, G.ladera); g.fillStyle = P.rocaMed; g.fill(); g.clip();
+    enEstratos(g, G, () => { for (const b of G.bandas) { bandaPath(g, G, b, 1.2 * u); g.fillStyle = b.cal ? P.rocaLuz : P.rocaOsc; g.fill(); } });
+    puntitos(g, bl, r, 900, u, P.sombra, .05, .18);
+    g.fillStyle = rgba(P.sombra, .35); g.fillRect(bl[0], bl[1], bl[2] - bl[0], bl[3] - bl[1]);
+    g.restore();
+    g.strokeStyle = rgba(P.luz, .45); g.lineWidth = 1 * u; linea(g, G.lcara.slice(0, 18)); g.stroke();
+    pasto(g, P, G, G.lineaL, 7, r);
+    arbol(g, P, W * .004, G.top + u, 10 * u, r, "normal");
+    arbol(g, P, W * .182, G.top + 3 * u, 8 * u, r, "normal");
+    hotel(g, P, G, "normal");
+    poly(g, G.playa); const ar = g.createLinearGradient(0, H * .82, 0, H); ar.addColorStop(0, P.arena); ar.addColorStop(1, P.arena2); g.fillStyle = ar; g.fill();
+    poly(g, G.mojada); g.fillStyle = rgba(P.mojada, .5); g.fill();
+    arenaDetalle(g, P, G, r); rocas(g, P, G, r); huellas(g, P, G);
+  },
+  2(g, P, G, r) { // Acuarela
+    const { u } = G, wob = 2.2 * u, base = (pts, c) => { poly(g, pts); g.fillStyle = mx(c, P.papel, .4); g.fill(); };
+    base(G.lejos0, P.lejos[0]); aguada(g, G.lejos0, P.lejos[0], r, 4, wob, .25);
+    base(G.lejos1, P.lejos[1]); aguada(g, G.lejos1, P.lejos[1], r, 4, wob, .28);
+    brumaCapa(g, P, G, .35);
+    for (const s of G.rasa) aguada(g, s, P.rocaOsc, r, 3, u, .4);
+    base(G.acantilado, P.rocaMed); aguada(g, G.acantilado, P.rocaMed, r, 5, wob, .22);
+    const bb = caja(G.acantilado);
+    g.save(); poly(g, G.acantilado); g.clip();
+    enEstratos(g, G, () => { for (const b of G.bandas) { if (r() < .25) continue; bandaPath(g, G, b, 2 * u, .6 * u); g.fillStyle = rgba(b.cal ? P.rocaLuz : P.rocaOsc, b.cal ? .3 : .38); g.fill(); } });
+    puntitos(g, bb, r, 2200, u, P.sombra, .04, .14);
+    luzRoca(g, P, bb, .8);
+    g.restore();
+    const cap = G.capa(G.cima, 5); base(cap, P.hierba); aguada(g, cap, P.hierba, r, 3, u, .35);
+    for (const [x, y] of G.cima) if (r() < .4) { g.fillStyle = rgba(P.hierbaLuz, .3); g.beginPath(); g.arc(x, y + u, (1.5 + r() * 2.5) * u, 0, 7); g.fill(); }
+    camino(g, P, G, rgba(P.arena, .7));
+    ermita(g, P, G, "normal");
+    base(G.ladera, P.rocaMed); aguada(g, G.ladera, P.rocaMed, r, 5, wob, .22);
+    g.save(); poly(g, G.ladera); g.clip();
+    enEstratos(g, G, () => { for (const b of G.bandas) { if (r() < .3) continue; bandaPath(g, G, b, 2 * u, .6 * u); g.fillStyle = rgba(P.rocaOsc, .3); g.fill(); } });
+    g.fillStyle = rgba(P.sombra, .28); g.fillRect(0, 0, W, H);
+    g.restore();
+    const capL = G.capa(G.lineaL, 7); base(capL, P.hierba); aguada(g, capL, P.hierba, r, 3, u, .35);
+    arbol(g, P, W * .004, G.top + u, 10 * u, r, "acuarela");
+    arbol(g, P, W * .182, G.top + 3 * u, 8 * u, r, "acuarela");
+    hotel(g, P, G, "normal");
+    base(G.playa, P.arena); aguada(g, G.playa, P.arena, r, 4, wob, .25);
+    aguada(g, [[-6, H * .92], [W * .4, H * .9], [W * .9, H * .95], [W, H + 6], [-6, H + 6]], P.arena2, r, 4, 4 * u, .2);
+    aguada(g, G.mojada, P.mojada, r, 3, wob, .25);
+    arenaDetalle(g, P, G, r); rocas(g, P, G, r, "acuarela"); huellas(g, P, G);
+  },
+  3(g, P, G, r) { // Plumilla (grabado a tinta)
+    const { u } = G, ink = P.tinta;
+    const contorno = (pts, w, a = 1) => { poly(g, pts); g.strokeStyle = rgba(ink, a); g.lineWidth = w; g.stroke(); };
+    const rayado = (pts, ang, esp, a, w = .4 * u) => { g.save(); poly(g, pts); g.clip(); const bb = caja(pts), cx = (bb[0] + bb[2]) / 2, cy = (bb[1] + bb[3]) / 2, rr = Math.hypot(bb[2] - bb[0], bb[3] - bb[1]) / 2 + 2;
+      g.translate(cx, cy); g.rotate(ang); g.strokeStyle = rgba(ink, a); g.lineWidth = w; g.beginPath(); for (let y = -rr; y < rr; y += esp) { g.moveTo(-rr, y); g.lineTo(rr, y); } g.stroke(); g.restore(); };
+    for (const [pts, c] of [[G.lejos0, P.lejos[0]], [G.lejos1, P.lejos[1]]]) { poly(g, pts); g.fillStyle = mx(c, P.papel, .3); g.fill(); rayado(pts, 0, 2.2 * u, .22); linea(g, pts.slice(0, -2)); g.strokeStyle = rgba(ink, .7); g.lineWidth = .6 * u; g.stroke(); }
+    brumaCapa(g, P, G, .3);
+    for (const s of G.rasa) { poly(g, s); g.fillStyle = P.rocaMed; g.fill(); contorno(s, .5 * u, .8); }
+    const bb = caja(G.acantilado);
+    g.save(); poly(g, G.acantilado); g.fillStyle = mx(P.rocaLuz, P.papel, .25); g.fill(); g.clip();
+    enEstratos(g, G, () => { for (const b of G.bandas) {
+      bandaPath(g, G, b, 1 * u);
+      if (!b.cal) { g.fillStyle = rgba(P.rocaOsc, .55); g.fill(); g.save(); g.clip(); g.strokeStyle = rgba(ink, .35); g.lineWidth = .35 * u; g.beginPath();
+        for (let yy = b.y; yy < b.y + b.gr + 2 * u; yy += 1.3 * u) { g.moveTo(-H * 1.7, yy); g.lineTo(H * 1.7, yy); } g.stroke(); g.restore(); }
+      g.strokeStyle = rgba(ink, .75); g.lineWidth = .5 * u; bandaPath(g, G, b, 1 * u); g.stroke(); } });
+    const alto = bb[3] - bb[1];
+    for (let o = bb[0]; o < bb[2] + alto; o += 2.4 * u) { g.strokeStyle = rgba(ink, .05 + .4 * clamp((o - alto * .4 - G.x0) / (W * .4))); g.lineWidth = .35 * u;
+      g.beginPath(); g.moveTo(o, bb[1]); g.lineTo(o - alto * .8, bb[3]); g.stroke(); }
+    g.strokeStyle = rgba(ink, .3); g.lineWidth = .35 * u; g.beginPath(); for (let y = H * .68; y < bb[3]; y += 1.6 * u) { g.moveTo(bb[0], y); g.lineTo(bb[2], y); } g.stroke();
+    g.restore(); contorno(G.acantilado, 1.1 * u, .9);
+    pasto(g, P, G, G.cima, 5, r, "tinta");
+    camino(g, P, G, rgba(ink, .7));
+    ermita(g, P, G, "tinta");
+    g.save(); poly(g, G.ladera); g.fillStyle = mx(P.rocaLuz, P.papel, .15); g.fill(); g.clip();
+    enEstratos(g, G, () => { for (const b of G.bandas) { g.strokeStyle = rgba(ink, .6); g.lineWidth = .5 * u; bandaPath(g, G, b, 1 * u); g.stroke(); } });
+    g.restore();
+    rayado(G.ladera, .8, 1.8 * u, .35); rayado(G.ladera, -.8, 2.6 * u, .22); contorno(G.ladera, 1.1 * u, .9);
+    pasto(g, P, G, G.lineaL, 7, r, "tinta");
+    arbol(g, P, W * .004, G.top + u, 10 * u, r, "tinta");
+    arbol(g, P, W * .182, G.top + 3 * u, 8 * u, r, "tinta");
+    hotel(g, P, G, "tinta");
+    poly(g, G.playa); g.fillStyle = mx(P.arena, P.papel, .3); g.fill();
+    rayado(G.mojada, 0, 1.5 * u, .2);
+    g.save(); poly(g, G.playa); g.clip();
+    for (let k = 0; k < 3200; k++) { const x = r() * W, y = orillaY(x) + (H - orillaY(x)) * Math.pow(r(), .6); g.fillStyle = rgba(ink, .28); g.beginPath(); g.arc(x, y, .35 * u, 0, 7); g.fill(); }
+    g.restore();
+    linea(g, G.mojada.slice(0, G.mojada.length / 2)); g.strokeStyle = rgba(ink, .8); g.lineWidth = .7 * u; g.stroke();
+    rocas(g, P, G, r, "tinta"); huellas(g, P, G);
+  },
+  4(g, P, G, r) { // Geométrico (low-poly)
+    const { u } = G;
+    lowpoly(g, G.lejos0, (x, y) => variar(mx(P.lejos[0], P.bruma, clamp((y - (G.hor - H * .03)) / (H * .03)) * .4), .12, r), 12 * u, r);
+    lowpoly(g, G.lejos1, () => variar(P.lejos[1], .12, r), 10 * u, r);
+    brumaCapa(g, P, G, .3);
+    for (const s of G.rasa) { g.fillStyle = P.rocaLuz; poly(g, [s[0], s[1], s[2]]); g.fill(); g.fillStyle = P.rocaOsc; poly(g, [s[0], s[2], s[3]]); g.fill(); }
+    lowpoly(g, G.acantilado, (x, y) => { const b = bandaEn(G, x, y); let c = b.cal ? P.rocaLuz : P.rocaOsc;
+      c = mx(mx(c, P.luz, clamp(1 - (x - G.x0) / (W * .15)) * .35), P.sombra, clamp((y - (G.hor - H * .1)) / (H * .28)) * .45); return variar(c, .14, r); }, 5.5 * u, r);
+    lowpoly(g, G.capa(G.cima, 5), () => variar(r() < .5 ? P.hierba : P.hierbaLuz, .1, r), 3.5 * u, r);
+    camino(g, P, G, rgba(P.arena, .75));
+    ermita(g, P, G, "normal");
+    lowpoly(g, G.ladera, (x, y) => { const b = bandaEn(G, x, y); return variar(mx(b.cal ? P.rocaMed : P.rocaOsc, P.sombra, .3 + clamp((y - G.top) / (H * .25)) * .3), .14, r); }, 6 * u, r);
+    lowpoly(g, G.capa(G.lineaL, 7), () => variar(r() < .5 ? P.hierba : P.hierbaLuz, .1, r), 4 * u, r);
+    arbol(g, P, W * .004, G.top + u, 10 * u, r, "poly");
+    arbol(g, P, W * .182, G.top + 3 * u, 8 * u, r, "poly");
+    hotel(g, P, G, "normal");
+    lowpoly(g, G.playa, (x, y) => variar(mx(P.arena, P.arena2, clamp((y - H * .82) / (H * .18))), .1, r), 11 * u, r);
+    lowpoly(g, G.mojada, () => variar(mx(P.mojada, P.arena, .3), .1, r), 7 * u, r);
+    rocas(g, P, G, r, "poly"); huellas(g, P, G);
+  },
+  5(g, P, G, r) { // Papel recortado por capas
+    const { u } = G, sh = (b, oy) => { g.shadowColor = b ? "rgba(0,0,0,.4)" : "transparent"; g.shadowBlur = b * u * DPR; g.shadowOffsetY = oy * u * DPR; g.shadowOffsetX = 0; };
+    sh(4, 1); poly(g, G.lejos0); g.fillStyle = P.lejos[0]; g.fill(); poly(g, G.lejos1); g.fillStyle = P.lejos[1]; g.fill();
+    sh(0, 0); brumaCapa(g, P, G, .25);
+    sh(3, 1); for (const s of G.rasa) { poly(g, s); g.fillStyle = P.rocaOsc; g.fill(); }
+    sh(8, 2); poly(g, G.acantilado); g.fillStyle = P.rocaOsc; g.fill();
+    const bb = caja(G.acantilado);
+    g.save(); poly(g, G.acantilado); g.clip(); sh(3, .8);
+    enEstratos(g, G, () => { G.bandas.forEach((b, i) => { if (!b.cal) return; bandaPath(g, G, b, .6 * u, .4 * u); g.fillStyle = i % 4 ? P.rocaMed : P.rocaLuz; g.fill(); }); });
+    sh(0, 0); const vg = g.createLinearGradient(0, bb[1], 0, bb[3]); vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, rgba(P.sombra, .4)); g.fillStyle = vg; g.fillRect(bb[0], bb[1], bb[2] - bb[0], bb[3] - bb[1]);
+    g.restore();
+    sh(4, 1.2); poly(g, G.capa(G.cima, 5)); g.fillStyle = P.hierba; g.fill(); poly(g, G.capa(G.cima, 1.8)); g.fillStyle = P.hierbaLuz; g.fill();
+    sh(2, .6); ermita(g, P, G, "normal");
+    sh(8, 2); poly(g, G.ladera); g.fillStyle = P.rocaMed; g.fill();
+    g.save(); poly(g, G.ladera); g.clip(); sh(3, .8);
+    enEstratos(g, G, () => { G.bandas.forEach((b, i) => { if (b.cal && i % 4 === 0) { bandaPath(g, G, b, .6 * u, .4 * u); g.fillStyle = P.rocaLuz; g.fill(); } }); });
+    sh(0, 0); g.fillStyle = rgba(P.sombra, .3); g.fillRect(0, 0, W, H);
+    g.restore();
+    sh(4, 1.2); poly(g, G.capa(G.lineaL, 7)); g.fillStyle = P.hierba; g.fill(); poly(g, G.capa(G.lineaL, 2.4)); g.fillStyle = P.hierbaLuz; g.fill();
+    sh(3, 1); arbol(g, P, W * .004, G.top + u, 10 * u, r, "normal"); arbol(g, P, W * .182, G.top + 3 * u, 8 * u, r, "normal");
+    sh(2, .6); hotel(g, P, G, "normal");
+    sh(5, -1.5); poly(g, G.playa); g.fillStyle = P.mojada; g.fill();
+    const seca = [[-6, H + 6]]; for (let x = -6; x <= W; x += 6) seca.push([x, Math.min(orillaY(x) + H * .035 + G.rn(x / (14 * u) + 1300) * 2.5 * u, H + 6)]); seca.push([W, H + 6]);
+    g.save(); poly(g, G.playa); g.clip(); poly(g, seca); g.fillStyle = P.arena; g.fill();
+    const duna = [[-6, H + 6]]; for (let x = -6; x <= W; x += 6) duna.push([x, H * .935 + G.rn(x / (25 * u) + 1500) * 5 * u]); duna.push([W, H + 6]);
+    poly(g, duna); g.fillStyle = P.arena2; g.fill(); g.restore();
+    sh(3, 1); rocas(g, P, G, r); sh(0, 0); huellas(g, P, G);
+  }
+};
+
+/* Capas del paisaje (se dibujan una vez por tamaño de pantalla) */
+let capaDia = null, capaNoche = null, capaTam = "", papel = null;
+function capa(dibujo) {
+  const c = document.createElement("canvas"); c.width = W * DPR; c.height = H * DPR;
+  const g = c.getContext("2d"); g.setTransform(DPR, 0, 0, DPR, 0, 0); dibujo(g); return c;
+}
+function texturaPapel() {
+  const c = document.createElement("canvas"); c.width = c.height = 256; const g = c.getContext("2d"), d = g.createImageData(256, 256);
+  for (let i = 0; i < d.data.length; i += 4) { const v = 215 + Math.random() * 40; d.data[i] = v; d.data[i + 1] = v * .98; d.data[i + 2] = v * .94; d.data[i + 3] = 255; }
+  g.putImageData(d, 0, 0); g.globalAlpha = .08; g.strokeStyle = "#6b5a48";
+  for (let k = 0; k < 120; k++) { const x = Math.random() * 256, y = Math.random() * 256, a = Math.random() * 6.3, l = 4 + Math.random() * 14; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke(); }
+  return ex.createPattern(c, "repeat");
+}
+
+/* ===== Piezas que se mueven ===== */
+function cielo(stops) {
+  const g = ex.createLinearGradient(0, 0, 0, H * HOR);
+  stops.forEach((c, i) => g.addColorStop(i / (stops.length - 1), c));
+  ex.fillStyle = g; ex.fillRect(0, 0, W, H * HOR + 2);
+}
+function sol(x, y, r, P, alfa = 1) {
+  if (alfa <= 0) return;
+  const hor = H * HOR;
+  ex.save(); ex.beginPath(); ex.rect(0, 0, W, hor); ex.clip();
+  const h = ex.createRadialGradient(x, y, r * .3, x, y, r * 6);
+  h.addColorStop(0, `rgba(${P.halo},${.7 * alfa})`); h.addColorStop(.35, `rgba(${P.halo},${.22 * alfa})`); h.addColorStop(1, `rgba(${P.halo},0)`);
+  ex.fillStyle = h; ex.fillRect(0, 0, W, hor);
+  const d = ex.createRadialGradient(x, y - r * .2, 0, x, y, r); d.addColorStop(0, "#fffbe8"); d.addColorStop(1, P.sol);
+  ex.globalAlpha = alfa; ex.fillStyle = d; ex.beginPath(); ex.arc(x, y, r, 0, 7); ex.fill();
+  ex.restore(); ex.globalAlpha = 1;
+}
+function pintarNubes(t, arriba, abajo, alfa, escala = 1) {
+  for (const n of nubes) {
+    const cx = ((n.x + t * n.v) % 1.5 - .25) * W, cy = n.y * H, wp = n.w * W * escala;
+    ex.save(); ex.translate(cx, cy); ex.scale(1, .4);
+    const g = ex.createLinearGradient(0, -wp * .4, 0, wp * .15); g.addColorStop(0, arriba); g.addColorStop(1, abajo);
+    ex.globalAlpha = alfa; ex.fillStyle = g; ex.beginPath();
+    for (const [bx, by, br] of n.bolas) { const r = br * wp; ex.moveTo(bx * wp + r, by * wp); ex.arc(bx * wp, by * wp, r, 0, 7); }
+    ex.fill(); ex.restore();
+  }
+  ex.globalAlpha = 1;
+}
+function pintarEstrellas(t, a) {
+  if (a <= 0) return;
+  ex.fillStyle = "#fff";
+  for (const e of estrellasN) {
+    if (e.y < 0 || e.y > 1 || e.x < 0 || e.x > 1) continue;
+    ex.globalAlpha = a * (.45 + .45 * Math.sin(t / (500 + e.f * 90) + e.f * 9));
+    ex.beginPath(); ex.arc(e.x * W, e.y * H * HOR * .97, e.r, 0, 7); ex.fill();
+  }
+  ex.globalAlpha = 1;
+}
+function estrellaFugaz(t) {
+  if (!fugaz && t > proxFugaz) { fugaz = { x: R(.35, .95) * W, y: R(.04, .25) * H, t0: t }; proxFugaz = t + R(4500, 9000); }
+  if (!fugaz) return;
+  const k = (t - fugaz.t0) / 900; if (k > 1) { fugaz = null; return; }
+  const x = fugaz.x - k * W * .35, y = fugaz.y + k * H * .1;
+  const g = ex.createLinearGradient(x, y, x + W * .12, y - H * .035);
+  g.addColorStop(0, `rgba(255,255,255,${1 - k})`); g.addColorStop(1, "rgba(255,255,255,0)");
+  ex.strokeStyle = g; ex.lineWidth = 2; ex.beginPath(); ex.moveTo(x, y); ex.lineTo(x + W * .12, y - H * .035); ex.stroke();
+}
+function mar(t, P, lx, lr, amp = 1) {
+  const hor = H * HOR, g = ex.createLinearGradient(0, hor, 0, H);
+  g.addColorStop(0, P.mar[0]); g.addColorStop(.3, P.mar[1]); g.addColorStop(1, P.mar[2]);
+  ex.fillStyle = g; ex.fillRect(0, hor, W, H - hor);
+  ex.fillStyle = `rgba(${P.luz},.35)`; ex.fillRect(0, hor, W, 1);
+  for (let i = 0; i < 40; i++) {
+    const f = i / 40, y = hor + 2 + f * f * H * .25, ancho = lr * (.5 + f * 2.2) * (.55 + .45 * Math.sin(t / 380 + i * 1.7));
+    const off = Math.sin(t / 900 + i * 2.3) * lr * .25 * f;
+    ex.fillStyle = `rgba(${P.luz},${.6 * (1 - f) * P.brillo})`; ex.fillRect(lx - ancho / 2 + off, y, ancho, 1.2 + f * 2.5);
+  }
+  for (const d of destellos) {
+    const a = .5 + .5 * Math.sin(t / 260 + d.f * 3);
+    ex.fillStyle = `rgba(${P.luz},${a * .35 * P.brillo})`; ex.fillRect(d.x * W, hor + d.y * H * .25, 1.5 + a * 3, 1);
+  }
+  ex.lineWidth = 1;
+  for (let c = 0; c < 9; c++) {
+    const f = (c + 1) / 10, base = hor + f * f * H * .24, A = (1.5 + f * 6) * amp;
+    ex.strokeStyle = `rgba(${P.luz},${.08 + f * .08})`; ex.beginPath();
+    for (let x = 0; x <= W; x += 10) { const y = base + Math.sin(x / (30 + f * 70) + t / (1400 - c * 80) + c) * A; x ? ex.lineTo(x, y) : ex.moveTo(x, y); }
+    ex.stroke();
+  }
+}
+function orilla(t, P) {
+  const u = Math.min(W, H) / 400, k = (Math.sin(t / 2600) + 1) / 2, d = H * (.006 + k * .028), fin = W * .8;
+  const borde = x => orillaY(x) + d + Math.sin(x / 23 + t / 700) * 2.5 * u;
+  ex.fillStyle = `rgba(${P.agua},.55)`; ex.beginPath(); ex.moveTo(0, orillaY(0) - 3);
+  for (let x = 0; x <= fin; x += 8) ex.lineTo(x, orillaY(x) - 3);
+  for (let x = fin; x >= 0; x -= 8) ex.lineTo(x, borde(x));
+  ex.fill();
+  ex.strokeStyle = `rgba(${P.espuma},.75)`; ex.lineWidth = 2 * u; ex.beginPath();
+  for (let x = 0; x <= fin; x += 8) x ? ex.lineTo(x, borde(x)) : ex.moveTo(x, borde(x));
+  ex.stroke();
+  const y2 = H * .8 + Math.sin(t / 2600 + 1.4) * H * .006;
+  ex.strokeStyle = `rgba(${P.espuma},.45)`; ex.lineWidth = 1.5 * u; ex.beginPath();
+  for (let x = 0; x <= W * .7; x += 8) { const y = y2 + (x / W) * H * .03 + Math.sin(x / 17 + t / 500) * 1.5 * u; x ? ex.lineTo(x, y) : ex.moveTo(x, y); }
+  ex.stroke();
+}
+function pajaros(t, color) {
+  ex.strokeStyle = color; ex.lineWidth = 1.6;
+  for (const g of gaviotas) {
+    g.x += g.v; if (g.x > 1.1) g.x = -.1;
+    const x = g.x * W, y = g.y * H + Math.sin(t / 800 + g.f) * 6, a = Math.sin(t / 180 + g.f) * 4 * g.s, s = 9 * g.s;
+    ex.beginPath(); ex.moveTo(x - s, y - a); ex.quadraticCurveTo(x - s * .45, y - 5 * g.s, x, y); ex.quadraticCurveTo(x + s * .45, y - 5 * g.s, x + s, y - a); ex.stroke();
+  }
+}
+function pareja(x, y, u, col, a) { // los dos, sentados de espaldas mirando al mar
+  if (a <= 0) return;
+  ex.save(); ex.globalAlpha = a; ex.fillStyle = col; ex.strokeStyle = col; ex.lineCap = "round";
+  for (const [dx, h, inc] of [[-5.6, 1, .32], [5.6, 1.07, -.26]]) {
+    const cx = x + dx * u, hh = h * u;
+    ex.beginPath(); ex.ellipse(cx, y - 1.5 * u, 7.5 * u, 2.6 * u, 0, 0, 7); ex.fill();
+    ex.beginPath(); ex.moveTo(cx - 6.8 * u, y - 1 * u);
+    ex.bezierCurveTo(cx - 7.6 * u, y - 9 * hh, cx - 6.6 * u, y - 15 * hh, cx - 4.2 * u, y - 17 * hh);
+    ex.quadraticCurveTo(cx, y - 18.6 * hh, cx + 4.2 * u, y - 17 * hh);
+    ex.bezierCurveTo(cx + 6.6 * u, y - 15 * hh, cx + 7.6 * u, y - 9 * hh, cx + 6.8 * u, y - 1 * u); ex.closePath(); ex.fill();
+    ex.fillRect(cx - 1.4 * u + inc * 2 * u, y - 20 * hh, 2.8 * u, 3.5 * hh);
+    ex.beginPath(); ex.arc(cx + inc * 7 * u, y - 22.8 * hh, 4.3 * u, 0, 7); ex.fill();
+  }
+  ex.lineWidth = 2.6 * u; ex.beginPath(); ex.moveTo(x + 2.5 * u, y - 15.5 * u); ex.quadraticCurveTo(x - 3 * u, y - 19.5 * u, x - 9.5 * u, y - 16 * u); ex.stroke();
+  ex.restore();
+}
+function farol(x, y, s, a) {
+  const gl = ex.createRadialGradient(x, y, 0, x, y, 28 * s);
+  gl.addColorStop(0, `rgba(255,190,110,${.5 * a})`); gl.addColorStop(1, "rgba(255,140,80,0)");
+  ex.fillStyle = gl; ex.fillRect(x - 28 * s, y - 28 * s, 56 * s, 56 * s);
+  const c = ex.createLinearGradient(0, y - 7 * s, 0, y + 7 * s); c.addColorStop(0, `rgba(255,170,90,${a})`); c.addColorStop(1, `rgba(255,236,180,${a})`);
+  ex.fillStyle = c; ex.beginPath(); ex.moveTo(x - 4.5 * s, y - 7 * s); ex.lineTo(x + 4.5 * s, y - 7 * s); ex.lineTo(x + 3.2 * s, y + 6 * s); ex.lineTo(x - 3.2 * s, y + 6 * s); ex.fill();
+  ex.fillStyle = `rgba(255,255,230,${a})`; ex.beginPath(); ex.ellipse(x, y + 5.5 * s, 2 * s, 1.1 * s, 0, 0, 7); ex.fill();
+}
+function rayos(x, y, a, rgb, t) {
+  if (a <= 0) return;
+  ex.save(); ex.beginPath(); ex.rect(0, 0, W, H * HOR); ex.clip(); ex.globalCompositeOperation = "lighter";
+  for (let i = 0; i < 9; i++) {
+    const ang = Math.PI * .5 + (i - 4) * .17 + Math.sin(t / 4000 + i) * .02, L = H;
+    ex.fillStyle = `rgba(${rgb},${a * .07})`; ex.beginPath(); ex.moveTo(x, y);
+    ex.lineTo(x + Math.cos(ang - .035) * L, y + Math.sin(ang - .035) * L); ex.lineTo(x + Math.cos(ang + .035) * L, y + Math.sin(ang + .035) * L); ex.fill();
+  }
+  ex.restore();
+}
+function arcoiris(k) {
+  if (k <= 0) return;
+  const cx = W * .42, cy = H * HOR + H * .02, r0 = Math.max(W * .62, H * .34), lw = Math.min(W, H) * .016;
+  ex.save(); ex.beginPath(); ex.rect(0, 0, W, H * HOR); ex.clip();
+  ["#ff5a5a", "#ff9e45", "#ffe25a", "#6bd47a", "#5aaeff", "#6a64e0", "#a86ad8"].forEach((c, i) => {
+    ex.globalAlpha = .34 * k; ex.strokeStyle = c; ex.lineWidth = lw * 1.1;
+    ex.beginPath(); ex.arc(cx, cy, r0 - i * lw, Math.PI, 0); ex.stroke();
+  });
+  ex.restore(); ex.globalAlpha = 1;
+}
+function lluvia(a) {
+  if (a <= 0) return;
+  ex.strokeStyle = `rgba(200,210,230,${.35 * a})`; ex.lineWidth = 1; ex.beginPath();
+  for (const g of gotas) {
+    g.y += g.v; if (g.y > 1) { g.y = -.05; g.x = Math.random(); }
+    const x = g.x * W, y = g.y * H; ex.moveTo(x, y); ex.lineTo(x - g.l * .25, y + g.l);
+  }
+  ex.stroke();
+}
+function relampago(t) {
+  for (const t0 of [22500, 22850, 29000, 34500, 34800]) {
+    const d = t - t0;
+    if (d > 0 && d < 450) { ex.fillStyle = `rgba(230,235,255,${.2 * (1 - d / 450)})`; ex.fillRect(0, 0, W, H); }
+  }
+}
+
+/* ===== La escena: cada momento va con su frase ===== */
+function pintarEscena(t) {
+  if (capaTam !== W + "x" + H) {
+    capaDia = capa(g => ESTILOS[FONDO](g, LAY.dia, geo(), semilla(11)));
+    capaNoche = capa(g => ESTILOS[FONDO](g, LAY.noche, geo(), semilla(11)));
+    capaTam = W + "x" + H;
+  }
+  const hor = H * HOR, m = Math.min(W, H);
+  const s = clamp((t - 16000) / 6000) * (1 - clamp((t - 38000) / 8000)); // tormenta: «momentos duros» → «superar juntos»
+  const d = clamp((t - 50000) / 28000), d2 = clamp((t - 75000) / 20000);  // anochece
+  cielo(mxL(mxL(mxL(CD.cielo, CN.cielo, d), CN.cielo2, d2), CD.tormenta, s));
+  pintarEstrellas(t, clamp((t - 68000) / 12000) * .85); if (t > 72000) estrellaFugaz(t);
+  const sx = W * .3, sy = hor - H * .16 + d * H * .175, sr = m * .075, halo = tri(CD.halo, CN.halo, d);
+  sol(sx, sy, sr, { halo, sol: CD.sol }, 1 - s);
+  rayos(sx, sy, (1 - s) * clamp((t - 38000) / 4000) * (1 - clamp((t - 56000) / 8000)), halo, t);
+  arcoiris(clamp((t - 42000) / 5000) * (1 - clamp((t - 60000) / 8000)));
+  pintarNubes(t, mx(mx(CD.nubeA, CN.nubeA, d), CD.nubeA2, s), mx(mx(CD.nubeB, CN.nubeB, d), CD.nubeB2, s), .45 + .47 * s, 1 + .3 * s);
+  if (s > 0) { ex.fillStyle = `rgba(30,34,46,${.45 * s})`; ex.fillRect(0, 0, W, hor); }
+  mar(t, { mar: mxL(mxL(CD.mar, CN.mar, d), CD.mar2, s), luz: tri(CD.luz, CN.luz, d), brillo: (1 - s) * (1 - .4 * d) }, sx, sr, 1 + s * 1.8);
+  ex.drawImage(capaDia, 0, 0, W, H);
+  if (d > 0) { ex.globalAlpha = d; ex.drawImage(capaNoche, 0, 0, W, H); ex.globalAlpha = 1; }
+  orilla(t, { agua: tri(CD.agua, CN.agua, d), espuma: tri(CD.espuma, CN.espuma, d) });
+  if (s > 0) { ex.fillStyle = `rgba(20,24,36,${.32 * s})`; ex.fillRect(0, 0, W, H); }
+  pareja(W * .42, H * .93, m / 200, CN.silueta, clamp((t - 60000) / 5000));
+  for (const f of farolillos) {
+    if (t < f.inicio) continue;
+    f.y -= f.v * (.4 + .6 * f.y); f.x += f.d;
+    if (f.y < -.05) { f.y = .87; f.x = R(.36, .5); }
+    const a = clamp((.87 - f.y) * 12) * (.6 + .4 * f.y);
+    farol(f.x * W + Math.sin(t / 1300 + f.w) * 8, f.y * H, f.s * (.35 + .65 * f.y) * m / 400, a);
+  }
+  lluvia(s); relampago(t);
+  if (s < .2 && d < .8) pajaros(t, CD.pajaro);
+  if (FONDO === 2 || FONDO === 3 || FONDO === 5) {
+    if (!papel) papel = texturaPapel();
+    ex.save(); ex.globalCompositeOperation = "multiply"; ex.globalAlpha = FONDO === 5 ? .16 : .22; ex.fillStyle = papel; ex.fillRect(0, 0, W, H); ex.restore();
+  }
+  for (const b of globos) {
+    b.y -= b.v; if (b.y < -.05) { b.y = 1.05; b.x = Math.random(); }
+    ex.globalAlpha = .45; ex.fillStyle = "#ff8fab";
+    corazon(ex, b.x * W + Math.sin(t / 1000 + b.w) * 14, b.y * H, b.s);
+  }
+  ex.globalAlpha = 1;
+  pintarEstallido(ex);
+}
+
+
+function mezcla(a, b, k) {
+  const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)), A = p(a), B = p(b);
+  return `rgb(${A.map((v, i) => Math.round(v + (B[i] - v) * k)).join(",")})`;
+}
+
+let inicio = performance.now(), inicioEscena = 0;
+function bucle(now) {
+  const t = now - inicio;
+  if (escenaActiva) pintarEscena(now - inicioEscena); else pintarFondo(t);
+  requestAnimationFrame(bucle);
+}
+requestAnimationFrame(bucle);
+
+/* ---------- Música romántica (se genera aquí mismo, sin archivos) ---------- */
+let audio = null, maestro, reverb, siguiente = 0, compas = 0, tocaMelodia = false, silencio = false;
+const BPM = 66, NEGRA = 60 / BPM;
+const nota = n => 440 * Math.pow(2, (n - 69) / 12);
+// Fa - Rem - Sib - Do (I-vi-IV-V), suave
+const ACORDES = [[53, 57, 60, 65], [50, 57, 62, 65], [46, 58, 62, 65], [48, 55, 64, 67]];
+const MELODIA = [[77, 2], [76, 1], [74, 1], [72, 3], [69, 1], [70, 2], [74, 2], [72, 4], [77, 2], [79, 1], [77, 1], [76, 2], [72, 2], [74, 3], [72, 1], [69, 4]];
+function crearAudio() {
+  audio = new (window.AudioContext || window.webkitAudioContext)();
+  maestro = audio.createGain(); maestro.gain.value = 0;
+  maestro.gain.linearRampToValueAtTime(.55, audio.currentTime + 3);
+  reverb = audio.createConvolver();
+  const len = audio.sampleRate * 3.2, imp = audio.createBuffer(2, len, audio.sampleRate);
+  for (let c = 0; c < 2; c++) { const d = imp.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6); }
+  reverb.buffer = imp;
+  const mojado = audio.createGain(); mojado.gain.value = .55;
+  reverb.connect(mojado).connect(maestro);
+  maestro.connect(audio.destination);
+  siguiente = audio.currentTime + .1;
+  setInterval(programar, 120);
+}
+function piano(frec, cuando, dur, vol) {
+  for (const [tipo, mult, v] of [["triangle", 1, 1], ["sine", 2, .35], ["sine", 3, .12]]) {
+    const o = audio.createOscillator(), g = audio.createGain();
+    o.type = tipo; o.frequency.value = frec * mult; o.detune.value = (Math.random() - .5) * 6;
+    g.gain.setValueAtTime(0, cuando);
+    g.gain.linearRampToValueAtTime(vol * v, cuando + .012);
+    g.gain.exponentialRampToValueAtTime(vol * v * .35, cuando + .35);
+    g.gain.exponentialRampToValueAtTime(.0001, cuando + dur);
+    o.connect(g); g.connect(maestro); g.connect(reverb);
+    o.start(cuando); o.stop(cuando + dur + .05);
+  }
+}
+function colchon(notas, cuando, dur) {
+  for (const n of notas) {
+    const o = audio.createOscillator(), g = audio.createGain();
+    o.type = "sine"; o.frequency.value = nota(n - 12);
+    g.gain.setValueAtTime(0, cuando); g.gain.linearRampToValueAtTime(.035, cuando + 1.2); g.gain.linearRampToValueAtTime(0, cuando + dur);
+    o.connect(g); g.connect(reverb); o.start(cuando); o.stop(cuando + dur + .1);
+  }
+}
+let posMel = 0, tMel = 0;
+function programar() {
+  while (siguiente < audio.currentTime + .6) {
+    const ac = ACORDES[compas % 4], dur = NEGRA * 4;
+    colchon(ac, siguiente, dur + .5);
+    piano(nota(ac[0] - 12), siguiente, 3.5, .16);
+    const patron = [1, 2, 3, 2, 1, 2, 3, 2];
+    patron.forEach((p, i) => piano(nota(ac[p]), siguiente + i * NEGRA / 2, 2.2, .07 + (i === 0 ? .03 : 0)));
+    if (tocaMelodia) {
+      let t = 0;
+      while (t < 4) {
+        const [n, d] = MELODIA[posMel % MELODIA.length];
+        if (tMel === 0) piano(nota(n), siguiente + t * NEGRA, d * NEGRA + 1.2, .12);
+        const resto = d - tMel, paso = Math.min(resto, 4 - t);
+        t += paso; tMel += paso;
+        if (tMel >= d) { tMel = 0; posMel++; }
+      }
+    }
+    siguiente += dur; compas++;
+  }
+}
+function campanitas() {
+  if (!audio) return;
+  const t = audio.currentTime;
+  [84, 88, 91, 96, 100].forEach((n, i) => piano(nota(n), t + i * .08, 2.5, .08));
+}
+$("#sonido").onclick = e => {
+  e.stopPropagation(); if (!audio) return;
+  silencio = !silencio;
+  maestro.gain.cancelScheduledValues(audio.currentTime);
+  maestro.gain.linearRampToValueAtTime(silencio ? 0 : .55, audio.currentTime + .4);
+  $("#sonido").textContent = silencio ? "🔇" : "🔊";
+};
+
+/* ---------- Abrir el regalo poco a poco ---------- */
+const PISTAS = ["Mmm… ¿qué será? Otra vez 😊", "¡Fuera el lazo! Sigue…", "Ya casi…", "Una vez más… 💛", ""];
+let paso = 0;
+const regalo = $("#regalo"), puntos = [...document.querySelectorAll("#puntos i")];
+regalo.addEventListener("click", abrir);
+function abrir() {
+  if (paso >= 5) return;
+  if (!audio) { crearAudio(); $("#sonido").style.display = "block"; }
+  if (audio.state === "suspended") audio.resume();
+  paso++;
+  puntos[paso - 1].classList.add("on");
+  regalo.classList.remove("tiembla"); void regalo.offsetWidth; regalo.classList.add("tiembla");
+  if (paso >= 2) regalo.classList.add("paso" + paso);
+  campanitas();
+  if (navigator.vibrate) navigator.vibrate(paso === 5 ? [60, 40, 120] : 25);
+  $("#pista").textContent = PISTAS[paso - 1];
+  const r = regalo.getBoundingClientRect();
+  if (paso === 4) for (let i = 0; i < 20; i++) estallido.push({ x: r.left + r.width / 2, y: r.top + r.height * .35, vx: (Math.random() - .5) * 3, vy: -Math.random() * 3, s: 4, vida: .8, c: "#ffc75f", corazon: false });
+  if (paso === 5) {
+    explotar(r.left + r.width / 2, r.top + r.height * .35);
+    setTimeout(() => {
+      $("#portada").classList.add("oculta");
+      escenaActiva = true; inicioEscena = performance.now();
+      $("#escena").classList.add("ver");
+      tocaMelodia = true;
+      contarHistoria();
+    }, 1300);
+  }
+}
+
+/* ---------- Texto animado de la escena final ---------- */
+const espera = ms => new Promise(r => setTimeout(r, ms));
+async function contarHistoria() {
+  const caja = $("#textos");
+  caja.classList.remove("oculta"); caja.innerHTML = "";
+  for (const [texto, clase] of CONFIG.frases) {
+    const p = document.createElement("div");
+    p.className = "frase " + clase; p.textContent = texto;
+    caja.appendChild(p);
+    await espera(60); p.classList.add("on");
+    await espera(2000 + texto.length * 55);
+    p.classList.add("fuera"); await espera(1300); p.remove();
+  }
+  // final
+  const f = document.createElement("div");
+  f.className = "frase"; f.innerHTML = `${CONFIG.final}, ${CONFIG.para} ❤`;
+  caja.appendChild(f); await espera(60); f.classList.add("on");
+  explotar(W / 2, H * .25); campanitas();
+  await espera(1600);
+  const tj = $("#tarjeta");
+  tj.innerHTML = `<b>${CONFIG.hotel}</b><p>${CONFIG.lugar}</p><p>${CONFIG.detalle}</p>
+    <div class="firma">Juntitos para siempre.<br>Juntos todo es mejor<br>· ${CONFIG.firma} ·</div>
+    <button id="otraVez">↺ Ver otra vez</button>`;
+  tj.classList.add("on");
+  $("#otraVez").onclick = () => location.reload();
+}
+</script>
+</body>
+</html>
